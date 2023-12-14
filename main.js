@@ -1,13 +1,13 @@
 import * as THREE from 'three';
 
 // starting images starting from the top
-const STARTY = 0;
+const STARTY = -20;
 
 // create a new scene
 const scene = new THREE.Scene();
 
 // create and position the camera
-scene.background = new THREE.TextureLoader().load('img/space.jpg')
+scene.background = new THREE.TextureLoader().load('img/black.jpg')
 const camera = new THREE.PerspectiveCamera
 (75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
@@ -17,13 +17,14 @@ camera.position.z = 40;
 // create list of images in img folder
 let imgList = [
     'me.jpg',
-    'space.jpg'
+    'pic.png',
+    '3452.png'
 ]
 
 // add every listed image as a plane mesh texture to the scene
 for (const image in imgList) {
 // every mesh has a geometry, texture and material
-    const geometry = new THREE.PlaneGeometry(30, 20);
+    const geometry = new THREE.PlaneGeometry(15, 15);
     const texture = new THREE.TextureLoader().load('img/' + imgList[image]);
     const material = new THREE.MeshBasicMaterial
     ({ color: 0xffffff, side: THREE.DoubleSide, map: texture });
@@ -54,13 +55,13 @@ function resizeWindow() {
         camera.position.x -0;
         for (const child in scene.children) {
                 scene.children[child].rotation.y = 0;
-                scene.children[child].position.y = child * -30;
+                scene.children[child].position.y = child * -40;
             }
         } else {
-        camera.position.x = 15;
+        camera.position.x = 35;
         for (const child in scene.children) {
             scene.children[child].rotation.y = 15 * (Math.PI / 180);
-            scene.children[child].position.y = child * -30;
+            scene.children[child].position.y = child * -20;
         }
         }
     }

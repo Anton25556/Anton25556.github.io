@@ -7,7 +7,7 @@ canvas {
 
 body {
     font-size: 24px;
-    color: white;
+    color: black;
 }
 
 #content {
@@ -21,7 +21,37 @@ body {
 }
 
 h1 {
-    color: white;
+    color: black;
+    font-family: 'Courier New', Courier, monospace;
+    margin-left: -70px;
+    text-shadow: 1px 1px 1px
+}
+
+h2 {
+    font-family: 'Courier New', Courier, monospace;
+    margin-left: -70px;
+    text-shadow: 1px 1px 1px
+}
+
+h3 {
+    font-family: 'Courier New', Courier, monospace;
+    margin: -70px;
+    font-size: 35px;
+    padding-top: 70px;
+    text-shadow: 1px 1px 1px
+}
+h4 {
+    font-family: 'Courier New', Courier, monospace;
+    margin: -70px;
+    font-size: 35px;
+    padding-top: 70px;
+    text-shadow: 1px 1px 1px
+
+}
+p {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-left: -70px;
+    text-shadow: 1px 1px 1px
 }
 
 @media screen and (max-width: 600px) {
