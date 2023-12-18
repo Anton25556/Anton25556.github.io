@@ -9,7 +9,7 @@ const scene = new THREE.Scene();
 // create and position the camera
 scene.background = new THREE.TextureLoader().load('img/black.jpg')
 const camera = new THREE.PerspectiveCamera
-(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    (75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 camera.position.y = STARTY;
 camera.position.z = 40;
@@ -23,12 +23,12 @@ let imgList = [
 
 // add every listed image as a plane mesh texture to the scene
 for (const image in imgList) {
-// every mesh has a geometry, texture and material
-    const geometry = new THREE.PlaneGeometry(15, 15);
+    // every mesh has a geometry, texture and material
+    const geometry = new THREE.PlaneGeometry(17, 19);
     const texture = new THREE.TextureLoader().load('img/' + imgList[image]);
     const material = new THREE.MeshBasicMaterial
-    ({ color: 0xffffff, side: THREE.DoubleSide, map: texture });
-    
+        ({ color: 0xffffff, side: THREE.DoubleSide, map: texture });
+
     const plane = new THREE.Mesh(geometry, material);
     // add the new plane to the scene
     scene.add(plane);
@@ -50,21 +50,28 @@ function resizeWindow() {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 
-//ajust for phone or desktop size
+    //ajust for phone or desktop size
     if (window.innerWidth <= 600) {
-        camera.position.x -0;
+        // center camera
+        camera.position.x = 0;
+        // for every picture 
         for (const child in scene.children) {
-                scene.children[child].rotation.y = 0;
-                scene.children[child].position.y = child * -40;
-            }
-        } else {
+            // unrotate them
+            scene.children[child].rotation.y = 0;
+            // change distance between them 
+            scene.children[child].position.y = child * -40;
+        }
+    } else {
+        // camer to side 
         camera.position.x = 35;
         for (const child in scene.children) {
+            // rotate images
             scene.children[child].rotation.y = 15 * (Math.PI / 180);
+            // change distance between images
             scene.children[child].position.y = child * -20;
         }
-        }
     }
+}
 
 // resize cancas on window resize
 window.addEventListener('resize', resizeWindow, false);
