@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Snake Game</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.js">
+    </script>
+    <style>
+      body {
+        text-align: center;
+        font-family: Arial, sans-serif;
+      }
+      #game-board {
+        width: 1875px;
+        height: 800px;
+        margin: 0 auto;
+        border: 1px solid #000;
+        position: relative;
+      }
+      .snake-segment {
+        width: 20px;
+        height: 20px;
+        background-color: green;
+        position: absolute;
+      }
+      .food {
+        width: 20px;
+        height: 20px;
+        background-color: red;
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Snake Game</h1>
+    <div id="game-board"></div>
+    <p>Use arrow keys to control the snake.</p>
+
+    <script>
+      const gameBoard = document.getElementById("game-board");
+      const blockSize = 20;
+      const snake = [{ top: 0, left: 0 }];
+      const initialFoodPosition = { top: 100, left: 100 };
+      let food = initialFoodPosition;
+      let direction = "right";
+
+      function createSegment(top, left) {
+        const segment = document.createElement("div");
+        segment.classList.add("snake-segment");
+        segment.style.top = `${top}px`;
+        segment.style.left = `${left}px`;
+        gameBoard.appendChild(segment);
+        return segment;
+      }
+
+      function createFood(top, left) {
+        const foodItem = document.createElement("div");
+        foodItem.classList.add("food");
+        foodItem.style.top = `${top}px`;
+        foodItem.style.left = `${left}px`;
+        gameBoard.appendChild(foodItem);
+        return foodItem;
+      }
+
+      function updateFoodPosition() {
+        const newTop = Math.floor(Math.random() * (gameBoard.clientHeight / blockSize)) * blockSize;
+        const newLeft = Math.floor(Math.random() * (gameBoard.clientWidth / blockSize)) * blockSize;
+        food.style.top = `${newTop}px`;
+        food.style.left = `${newLeft}px`;
+      }
+
+      function moveSnake() {
+        const head = { ...snake[0] };
+        switch (direction) {
+          case "up":
+            head.top -= blockSize;
+            break;
+          case "down":
+            head.top += blockSize;
+            break;
+          case "left":
+            head.left -= blockSize;
+            break;
+          case "right":
+            head.left += blockSize;
+            break;
+        }
+
+        snake.unshift(head);
+
+        if (head.top === food.offsetTop && head.left === food.offsetLeft) {
+          updateFoodPosition();
+        } else {
+          snake.pop();
+        }
+
+        // Check for collision with walls or itself
+        if (
+          head.top < 0 ||
+          head.top >= gameBoard.clientHeight ||
+          head.left < 0 ||
+          head.left >= gameBoard.clientWidth ||
+          snake.slice(1).some((segment) => segment.top === head.top && segment.left === head.left)
+        ) {
+          clearInterval(gameInterval);
+          alert("Game over!");
+        }
+
+        // Update the snake's segments on the game board
+        snake.forEach((segment, index) => {
+          const { top, left } = segment;
+          const segmentElement = document.getElementsByClassName("snake-segment")[index];
+          segmentElement.style.top = `${top}px`;
+          segmentElement.style.left = `${left}px`;
+        });
+      }
+
+      function changeDirection(event) {
+        switch (event.key) {
+          case "ArrowUp":
+            if (direction !== "down") direction = "up";
+            break;
+          case "ArrowDown":
+            if (direction !== "up") direction = "down";
+            break;
+          case "ArrowLeft":
+            if (direction !== "right") direction = "left";
+            break;
+          case "ArrowRight":
+            if (direction !== "left") direction = "right";
+            break;
+        }
+      }
+
+      // Initialize the game
+      createSegment(0, 0);
+      food = createFood(initialFoodPosition.top, initialFoodPosition.left);
+      updateFoodPosition();
+      const gameInterval = setInterval(moveSnake, 50);
+      document.addEventListener("keydown", changeDirection);
+    </script>
+  </body>
+</html>
