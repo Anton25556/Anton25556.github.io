@@ -20,7 +20,7 @@ var Ball = {
             y: (this.canvas.height / 2) - 9,
             moveX: DIRECTION.IDLE,
             moveY: DIRECTION.IDLE,
-            speed: incrementedSpeed || 13
+            speed: incrementedSpeed || 20
         };
     }
 };
@@ -30,12 +30,12 @@ var Ai = {
     new: function (side) {
         return {
             width: 18,
-            height: 180,
+            height: 200,
             x: side === 'left' ? 150 : this.canvas.width - 150,
             y: (this.canvas.height / 2) - 35,
             score: 0,
             move: DIRECTION.IDLE,
-            speed: 8
+            speed: 15
         };
     }
 };
@@ -45,7 +45,7 @@ var Game = {
         this.canvas = document.querySelector('canvas');
         this.context = this.canvas.getContext('2d');
  
-        this.canvas.width = 1400;
+        this.canvas.width = 1600;
         this.canvas.height = 1000;
  
         this.canvas.style.width = (this.canvas.width / 2) + 'px';
@@ -113,7 +113,7 @@ var Game = {
         this.context.fillStyle = '#ffffff';
  
         // Draw the 'press any key to begin' text
-        this.context.fillText('Press any key to begin',
+        this.context.fillText('Press any key to Start',
             this.canvas.width / 2,
             this.canvas.height / 2 + 15
         );
@@ -153,11 +153,11 @@ var Game = {
  
             // Handle ai (AI) UP and DOWN movement
             if (this.ai.y > this.ball.y - (this.ai.height / 2)) {
-                if (this.ball.moveX === DIRECTION.RIGHT) this.ai.y -= this.ai.speed / 1.5;
+                if (this.ball.moveX === DIRECTION.RIGHT) this.ai.y -= this.ai.speed;
                 else this.ai.y -= this.ai.speed / 4;
             }
             if (this.ai.y < this.ball.y - (this.ai.height / 2)) {
-                if (this.ball.moveX === DIRECTION.RIGHT) this.ai.y += this.ai.speed / 1.5;
+                if (this.ball.moveX === DIRECTION.RIGHT) this.ai.y += this.ai.speed;
                 else this.ai.y += this.ai.speed / 4;
             }
  
