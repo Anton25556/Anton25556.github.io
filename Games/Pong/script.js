@@ -20,7 +20,7 @@ var Ball = {
             y: (this.canvas.height / 2) - 9,
             moveX: DIRECTION.IDLE,
             moveY: DIRECTION.IDLE,
-            speed: incrementedSpeed || 20
+            speed: incrementedSpeed || 18
         };
     }
 };
@@ -35,7 +35,7 @@ var Ai = {
             y: (this.canvas.height / 2) - 35,
             score: 0,
             move: DIRECTION.IDLE,
-            speed: 15
+            speed: 14
         };
     }
 };
@@ -154,11 +154,11 @@ var Game = {
             // Handle ai (AI) UP and DOWN movement
             if (this.ai.y > this.ball.y - (this.ai.height / 2)) {
                 if (this.ball.moveX === DIRECTION.RIGHT) this.ai.y -= this.ai.speed;
-                else this.ai.y -= this.ai.speed / 4;
+                else this.ai.y -= this.ai.speed * 2;
             }
             if (this.ai.y < this.ball.y - (this.ai.height / 2)) {
                 if (this.ball.moveX === DIRECTION.RIGHT) this.ai.y += this.ai.speed;
-                else this.ai.y += this.ai.speed / 4;
+                else this.ai.y += this.ai.speed * 2;
             }
  
             // Handle ai (AI) wall collision
