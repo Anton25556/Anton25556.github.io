@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #forecast {
+            text-align: center;
+            margin-top: 100px;
+            padding: 20px;
+            border: 1px solid black;
+            border-radius: 10px;
+            width: 300px;
+        }
+        .dayBox {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="forecast"><h1>weather forecast</h1></div>
+    <script>
+    //make an xmlhttp to https://api.weather.gov/gridpoints/CTP/115,24/forecast
+//get the response and parse it
+//display the forecast in the console
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "https://fortnite-api.com/v1/map", true);
+xhr.send();
+xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+        var response = JSON.parse(xhr.responseText);
+        //Make entire page display map image
+        var map = response.data.images.blank;
+        var img = document.createElement("img");
+        img.src = map;
+        document.body.appendChild(img);
+        
+    }
+ }
+</script>
+</body>
+</html>

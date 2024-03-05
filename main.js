@@ -18,7 +18,7 @@ camera.position.z = 40;
 let imgList = [
     'me.jpg',
     'pic.png',
-    '3452.png'
+    'pong.png',
 ]
 
 // add every listed image as a plane mesh texture to the scene
